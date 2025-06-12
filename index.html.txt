@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nosso Amor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1c1c1e;
+      color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff6b81;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+
+    .counter {
+      font-size: 2em;
+      font-weight: bold;
+      color: #ffb6c1;
+      margin: 20px 0;
+    }
+
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .photos img {
+      width: 250px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ff6b81;
+      transition: transform 0.3s ease;
+    }
+
+    .photos img:hover {
+      transform: scale(1.05);
+    }
+
+    .heart {
+      font-size: 3em;
+      color: #ff6b81;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Nosso Amor 💖</h1>
+  <p>Juntos desde: <strong>12 de Maio de 2024</strong></p>
+  <p class="counter" id="daysCount">Carregando dias...</p>
+  <div class="heart">❤️</div>
+
+  <div class="photos">
+    <img src="foto1" alt="Foto 1">
+    <img src="foto2" alt="Foto 2">
+    <img src="foto3" alt="Foto 3">
+    <img src="foto4" alt="Foto 4">
+    <img src="foto5" alt="Foto 5">
+  </div>
+
+  <!-- Música de fundo -->
+  <audio id="bg-music" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <script>
+    // Contador de dias
+    const startDate = new Date('2024-05-12');
+    const today = new Date();
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('daysCount').innerText = `Estamos juntos há ${diffDays} dias 💞`;
+
+    // Autoplay workaround
+    window.addEventListener('click', () => {
+      const music = document.getElementById('bg-music');
+      if (music.paused) {
+        music.play();
+      }
+    });
+  </script>
+</body>
+</html>
