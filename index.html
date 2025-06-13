@@ -1,111 +1,179 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nosso Amor</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1c1c1e;
-      color: #f2f2f2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nosso Amor - Dia dos Namorados</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #2e003e, #5a0e62);
+    color: #f9d5e5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh;
+  }
 
-    h1 {
-      font-size: 2.5em;
-      color: #ff6b81;
-      margin-bottom: 10px;
-    }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.2em;
+    text-shadow: 0 0 8px #ff9ccf;
+  }
 
-    p {
-      font-size: 1.2em;
-      margin: 5px 0;
-    }
+  #contador {
+    font-size: 1.4rem;
+    margin-bottom: 2em;
+  }
 
-    .counter {
-      font-size: 2em;
-      font-weight: bold;
-      color: #ffb6c1;
-      margin: 20px 0;
-    }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+    gap: 15px;
+    max-width: 600px;
+    width: 100%;
+  }
 
-    .photos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
+  .gallery img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #c36891;
+    transition: transform 0.3s ease;
+  }
+  .gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #f48fb1;
+  }
 
-    .photos img {
-      width: 250px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ff6b81;
-      transition: transform 0.3s ease;
-    }
+  /* Modal para zoom das imagens */
+  #modal {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  #modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #ffaad4;
+  }
+  #modal:target {
+    display: flex;
+  }
 
-    .photos img:hover {
-      transform: scale(1.05);
-    }
-
-    .heart {
-      font-size: 3em;
-      color: #ff6b81;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
+  /* Botão de controle de música */
+  #audioControl {
+    margin-top: 25px;
+    background: #a73468;
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff7fa8;
+    transition: background-color 0.3s ease;
+  }
+  #audioControl:hover {
+    background: #ff4f8e;
+  }
+</style>
 </head>
 <body>
-  <h1>💖 Nosso Amor 💖</h1>
-  <p>Juntos desde: <strong>12 de Maio de 2024</strong></p>
-  <p class="counter" id="daysCount">Carregando dias...</p>
-  <div class="heart">❤️</div>
 
-  <div class="photos">
-    <img src="foto1.jpg" alt="Foto 1">
-    <img src="foto2.jpg" alt="Foto 2">
-    <img src="foto3.jpg" alt="Foto 3">
-    <img src="foto4.jpg" alt="Foto 4">
-    <img src="foto5.jpg" alt="Foto 5">
-  </div>
+<h1>Feliz Dia dos Namorados!</h1>
+<p>Nosso namoro começou em <strong>12/05/2023</strong>.</p>
+<p id="contador">Calculando tempo juntos...</p>
 
-  <!-- Música de fundo -->
-  <audio id="bg-music" autoplay loop>
-    <source src="musica.mp3" type="audio/mpeg">
-    
-  </audio>
+<div class="gallery" aria-label="Galeria de fotos do casal">
+  <a href="#modal" onclick="openModal('foto1.jpg')"><img src="foto1.jpg" alt="Foto 1 do casal" /></a>
+  <a href="#modal" onclick="openModal('foto2.jpg')"><img src="foto2.jpg" alt="Foto 2 do casal" /></a>
+  <a href="#modal" onclick="openModal('foto3.jpg')"><img src="foto3.jpg" alt="Foto 3 do casal" /></a>
+  <a href="#modal" onclick="openModal('foto4.jpg')"><img src="foto4.jpg" alt="Foto 4 do casal" /></a>
+  <a href="#modal" onclick="openModal('foto5.jpg')"><img src="foto5.jpg" alt="Foto 5 do casal" /></a>
+</div>
 
-  <script>
-    // Contador de dias
-    const startDate = new Date('2024-05-12');
-    const today = new Date();
-    const diffTime = Math.abs(today - startDate);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('daysCount').innerText = `Estamos juntos há ${diffDays} dias 💞`;
+<!-- Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modalImage" src="" alt="Foto ampliada" />
+</div>
 
-    // Autoplay workaround
-    window.addEventListener('click', () => {
-      const music = document.getElementById('bg-music');
-      if (music.paused) {
-        music.play();
-      }
-    });
-  </script>
+<!-- Áudio -->
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg" />
+  Seu navegador não suporta áudio.
+</audio>
+<button id="audioControl" aria-label="Controlar música">▶️ Tocar Música</button>
+
+<script>
+  // Contador em tempo real (dias, horas, minutos, segundos)
+  const dataInicio = new Date('2023-05-12T00:00:00');
+  const contador = document.getElementById('contador');
+
+  function atualizarContador() {
+    const agora = new Date();
+    let diff = agora - dataInicio; // diferença em ms
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= dias * 1000 * 60 * 60 * 24;
+
+    const horas = Math.floor(diff / (1000 * 60 * 60));
+    diff -= horas * 1000 * 60 * 60;
+
+    const minutos = Math.floor(diff / (1000 * 60));
+    diff -= minutos * 1000 * 60;
+
+    const segundos = Math.floor(diff / 1000);
+
+    contador.textContent = `Estamos juntos há ${dias} dia${dias !== 1 ? 's' : ''}, ${horas} hora${horas !== 1 ? 's' : ''}, ${minutos} minuto${minutos !== 1 ? 's' : ''} e ${segundos} segundo${segundos !== 1 ? 's' : ''}!`;
+  }
+
+  atualizarContador();
+  setInterval(atualizarContador, 1000);
+
+  // Controle do modal da galeria
+  const modal = document.getElementById('modal');
+  const modalImage = document.getElementById('modalImage');
+
+  function openModal(src) {
+    modalImage.src = src;
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    modal.style.display = 'none';
+    modalImage.src = '';
+  }
+
+  // Controle do áudio
+  const musica = document.getElementById('musica');
+  const btnAudio = document.getElementById('audioControl');
+  let tocando = false;
+
+  btnAudio.addEventListener('click', () => {
+    if(tocando){
+      musica.pause();
+      btnAudio.textContent = "▶️ Tocar Música";
+      tocando = false;
+    } else {
+      musica.play();
+      btnAudio.textContent = "⏸️ Pausar Música";
+      tocando = true;
+    }
+  });
+
+  // Para permitir autoplay em alguns navegadores, tocar após interação
+  document.body.addEventListener('click', () => {
+    if(!tocando){
+      musica.play();
+      btnAudio.textContent = "⏸️ Pausar Música";
+      tocando = true;
+    }
+  }, { once: true });
+</script>
+
 </body>
 </html>
