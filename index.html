@@ -1,246 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nosso Amor - Dia dos Namorados</title>
-<style>
-  body {
-    background: linear-gradient(135deg, #2e003e, #5a0e62);
-    color: #f9d5e5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0; padding: 20px;
-    display: flex; flex-direction: column; align-items: center;
-    min-height: 100vh;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nosso Amor ♥</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #001f3f, #0074D9);
+      color: #e0f7ff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-  h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.2em;
-    text-shadow: 0 0 8px #ff9ccf;
-    text-align: center;
-  }
-
-  #contador {
-    font-size: 1.4rem;
-    margin-bottom: 2em;
-    text-align: center;
-  }
-
-  /* Carrossel fade */
-  .carousel {
-    position: relative;
-    max-width: 90vw;
-    max-height: 70vh;
-    width: 100%;
-    margin: 0 auto 2em;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 25px #ff7fa8;
-  }
-
-  .carousel img {
-    width: 100%;
-    max-height: 70vh;
-    border-radius: 15px;
-    object-fit: contain;
-    position: absolute;
-    top: 0; left: 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    user-select: none;
-  }
-
-  .carousel img.active {
-    opacity: 1;
-    position: relative;
-  }
-
-  /* Botões */
-  .btn {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: 40px;
-    height: 40px;
-    margin-top: -20px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 2rem;
-    border-radius: 50%;
-    background-color: rgba(167, 52, 104, 0.7);
-    border: none;
-    user-select: none;
-    box-shadow: 0 0 10px #ff4f8e;
-    transition: background-color 0.3s ease;
-    z-index: 10;
-  }
-  .btn:hover {
-    background-color: #ff4f8e;
-  }
-  .prev {
-    left: 10px;
-  }
-  .next {
-    right: 10px;
-  }
-
-  /* Botão de controle de música */
-  #audioControl {
-    margin-top: 15px;
-    background: #a73468;
-    border: none;
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff7fa8;
-    transition: background-color 0.3s ease;
-  }
-  #audioControl:hover {
-    background: #ff4f8e;
-  }
-
-  @media (max-width: 480px) {
     h1 {
-      font-size: 2rem;
+      font-size: 2.8rem;
+      text-align: center;
+      text-shadow: 0 0 10px #7FDBFF;
     }
+
     #contador {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      text-align: center;
+      margin-bottom: 1.5em;
     }
+
+    .carousel {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      max-height: 70vh;
+      margin-bottom: 1.5em;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #39CCCC;
+    }
+
+    .carousel img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 15px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .carousel img.active {
+      position: relative;
+      opacity: 1;
+    }
+
     .btn {
-      width: 30px;
-      height: 30px;
-      font-size: 1.5rem;
-      margin-top: -15px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 116, 217, 0.7);
+      color: #fff;
+      font-size: 2rem;
+      padding: 0 12px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 0 10px #7FDBFF;
     }
-  }
-</style>
+
+    .btn:hover {
+      background-color: #39CCCC;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    #audioControl {
+      margin-top: 10px;
+      background-color: #0074D9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #7FDBFF;
+    }
+
+    #audioControl:hover {
+      background-color: #39CCCC;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .btn {
+        font-size: 1.5rem;
+        padding: 0 8px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<h1>Feliz Dia dos Namorados! Eu te Amo ♥</h1>
-<p>Nosso namoro começou em <strong>12/05/2024</strong>.</p>
-<p id="contador">Calculando tempo juntos...</p>
+  <h1>Feliz Dia dos Namorados! Eu te amo</h1>
+  <p>Nosso namoro começou em <strong>12/05/2024</strong>.</p>
+  <p id="contador">Carregando tempo juntos...</p>
 
-<!-- Carrossel -->
-<div class="carousel" aria-label="Galeria de fotos do casal">
-  <img src="foto1.jpg" alt="Foto 1 do casal" class="active" />
-  <img src="foto2.jpg" alt="Foto 2 do casal" />
-  <img src="foto3.jpg" alt="Foto 3 do casal" />
-  <img src="foto4.jpg" alt="Foto 4 do casal" />
-  <img src="foto5.jpg" alt="Foto 5 do casal" />
-  <img src="foto6.jpg" alt="Foto 6 do casal" />
-  <img src="foto7.jpg" alt="Foto 7 do casal" />
-  <img src="foto8.jpg" alt="Foto 8 do casal" />
-  <img src="foto9.jpg" alt="Foto 9 do casal" />
-  <img src="foto10.jpg" alt="Foto 10 do casal" />
-  <img src="foto11.jpg" alt="Foto 11 do casal" />
-  <img src="foto12.jpg" alt="Foto 12 do casal" />
-  <img src="foto13.jpg" alt="Foto 13 do casal" />
+  <div class="carousel" aria-label="Carrossel de fotos">
+    <!-- Fotos de 1 a 13 -->
+    <img src="foto1.jpg" alt="Foto 1" class="active" />
+    <img src="foto2.jpg" alt="Foto 2" />
+    <img src="foto3.jpg" alt="Foto 3" />
+    <img src="foto4.jpg" alt="Foto 4" />
+    <img src="foto5.jpg" alt="Foto 5" />
+    <img src="foto6.jpg" alt="Foto 6" />
+    <img src="foto7.jpg" alt="Foto 7" />
+    <img src="foto8.jpg" alt="Foto 8" />
+    <img src="foto9.jpg" alt="Foto 9" />
+    <img src="foto10.jpg" alt="Foto 10" />
+    <img src="foto11.jpg" alt="Foto 11" />
+    <img src="foto12.jpg" alt="Foto 12" />
+    <img src="foto13.jpg" alt="Foto 13" />
 
+    <button class="btn prev">&#10094;</button>
+    <button class="btn next">&#10095;</button>
+  </div>
 
+  <audio id="musica" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg" />
+    Seu navegador não suporta áudio.
+  </audio>
+  <button id="audioControl">⏸️ Pausar Música</button>
 
-  <button class="btn prev" aria-label="Foto anterior">&#10094;</button>
-  <button class="btn next" aria-label="Próxima foto">&#10095;</button>
-</div>
+  <script>
+    const dataInicio = new Date(2024, 5, 12);
+    const contador = document.getElementById('contador');
 
-<!-- Áudio -->
-<audio id="musica" loop>
-  <source src="musica.mp3" type="audio/mpeg" />
-  Seu navegador não suporta áudio.
-</audio>
-<button id="audioControl" aria-label="Controlar música">⏸️ Pausar Música</button>
+    function atualizarContador() {
+      const agora = new Date();
+      let diff = agora - dataInicio;
 
-<script>
-  // Data do início do namoro (12 de maio de 2024)
-  const dataInicio = new Date(2024, 4, 12, 0, 0, 0);
-  const contador = document.getElementById('contador');
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= dias * 1000 * 60 * 60 * 24;
 
-  function atualizarContador() {
-    const agora = new Date();
-    let diff = agora - dataInicio;
+      const horas = Math.floor(diff / (1000 * 60 * 60));
+      diff -= horas * 1000 * 60 * 60;
 
-    if(diff < 0) {
-      contador.textContent = "Nosso namoro ainda vai começar!";
-      return;
+      const minutos = Math.floor(diff / (1000 * 60));
+      diff -= minutos * 1000 * 60;
+
+      const segundos = Math.floor(diff / 1000);
+
+      contador.textContent = `Estamos juntos há ${dias} dia${dias !== 1 ? 's' : ''}, ${horas} hora${horas !== 1 ? 's' : ''}, ${minutos} minuto${minutos !== 1 ? 's' : ''} e ${segundos} segundo${segundos !== 1 ? 's' : ''}!`;
     }
 
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff -= dias * 1000 * 60 * 60 * 24;
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
 
-    const horas = Math.floor(diff / (1000 * 60 * 60));
-    diff -= horas * 1000 * 60 * 60;
+    // Carrossel
+    const imgs = document.querySelectorAll('.carousel img');
+    let index = 0;
 
-    const minutos = Math.floor(diff / (1000 * 60));
-    diff -= minutos * 1000 * 60;
+    function showImage(i) {
+      imgs.forEach((img, idx) => img.classList.toggle('active', idx === i));
+    }
 
-    const segundos = Math.floor(diff / 1000);
+    document.querySelector('.prev').onclick = () => {
+      index = (index - 1 + imgs.length) % imgs.length;
+      showImage(index);
+    };
 
-    contador.textContent = `Estamos juntos há ${dias} dia${dias !== 1 ? 's' : ''}, ${horas} hora${horas !== 1 ? 's' : ''}, ${minutos} minuto${minutos !== 1 ? 's' : ''} e ${segundos} segundo${segundos !== 1 ? 's' : ''}!`;
-  }
+    document.querySelector('.next').onclick = () => {
+      index = (index + 1) % imgs.length;
+      showImage(index);
+    };
 
-  atualizarContador();
-  setInterval(atualizarContador, 1000);
+    setInterval(() => {
+      index = (index + 1) % imgs.length;
+      showImage(index);
+    }, 6000);
 
-  // Carrossel fade
-  const imgs = document.querySelectorAll('.carousel img');
-  let current = 0;
+    // Áudio
+    const musica = document.getElementById('musica');
+    const btnAudio = document.getElementById('audioControl');
+    let tocando = true;
 
-  function showImage(index) {
-    if(index < 0) index = imgs.length - 1;
-    else if(index >= imgs.length) index = 0;
-    current = index;
-
-    imgs.forEach((img, i) => {
-      img.classList.toggle('active', i === current);
+    btnAudio.addEventListener('click', () => {
+      if (tocando) {
+        musica.pause();
+        btnAudio.textContent = "▶️ Tocar Música";
+      } else {
+        musica.play();
+        btnAudio.textContent = "⏸️ Pausar Música";
+      }
+      tocando = !tocando;
     });
-  }
 
-  document.querySelector('.prev').addEventListener('click', () => {
-    showImage(current - 1);
-  });
-  document.querySelector('.next').addEventListener('click', () => {
-    showImage(current + 1);
-  });
-
-  // Alterna imagem a cada 6 segundos
-  setInterval(() => {
-    showImage(current + 1);
-  }, 6000);
-
-  // Controle do áudio
-  const musica = document.getElementById('musica');
-  const btnAudio = document.getElementById('audioControl');
-  let tocando = true;
-
-  musica.play().catch(() => {
-    tocando = false;
-    btnAudio.textContent = "▶️ Tocar Música";
-  });
-
-  btnAudio.addEventListener('click', () => {
-    if(tocando){
-      musica.pause();
-      btnAudio.textContent = "▶️ Tocar Música";
-      tocando = false;
-    } else {
-      musica.play();
-      btnAudio.textContent = "⏸️ Pausar Música";
-      tocando = true;
-    }
-  });
-
-  // Tenta tocar na primeira interação caso autoplay falhe
-  document.body.addEventListener('click', () => {
-    if(!tocando){
-      musica.play();
-      btnAudio.textContent = "⏸️ Pausar Música";
-      tocando = true;
-    }
-  }, { once: true });
-</script>
+    // Tocar ao primeiro clique em iOS
+    document.body.addEventListener('click', () => {
+      if (!tocando) {
+        musica.play();
+        btnAudio.textContent = "⏸️ Pausar Música";
+        tocando = true;
+      }
+    }, { once: true });
+  </script>
 
 </body>
 </html>
