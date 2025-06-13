@@ -27,8 +27,8 @@
     text-align: center;
   }
 
-  /* Slideshow container */
-  .slideshow-container {
+  /* Carrossel fade */
+  .carousel {
     position: relative;
     max-width: 90vw;
     max-height: 70vh;
@@ -39,24 +39,25 @@
     box-shadow: 0 0 25px #ff7fa8;
   }
 
-  /* Imagens do slideshow */
-  .slide {
-    display: none;
+  .carousel img {
     width: 100%;
-    height: auto;
     max-height: 70vh;
-    object-fit: contain;
     border-radius: 15px;
+    object-fit: contain;
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
     user-select: none;
   }
 
-  /* Mostrar o slide ativo */
-  .active-slide {
-    display: block;
+  .carousel img.active {
+    opacity: 1;
+    position: relative;
   }
 
   /* Botões */
-  .prev, .next {
+  .btn {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -72,8 +73,9 @@
     user-select: none;
     box-shadow: 0 0 10px #ff4f8e;
     transition: background-color 0.3s ease;
+    z-index: 10;
   }
-  .prev:hover, .next:hover {
+  .btn:hover {
     background-color: #ff4f8e;
   }
   .prev {
@@ -107,7 +109,7 @@
     #contador {
       font-size: 1.1rem;
     }
-    .prev, .next {
+    .btn {
       width: 30px;
       height: 30px;
       font-size: 1.5rem;
@@ -122,16 +124,16 @@
 <p>Nosso namoro começou em <strong>12/05/2024</strong>.</p>
 <p id="contador">Calculando tempo juntos...</p>
 
-<!-- Slideshow -->
-<div class="slideshow-container" aria-label="Galeria de fotos do casal">
-  <img src="foto1.jpg" class="slide active-slide" alt="Foto 1 do casal" />
-  <img src="foto2.jpg" class="slide" alt="Foto 2 do casal" />
-  <img src="foto3.jpg" class="slide" alt="Foto 3 do casal" />
-  <img src="foto4.jpg" class="slide" alt="Foto 4 do casal" />
-  <img src="foto5.jpg" class="slide" alt="Foto 5 do casal" />
-  
-  <button class="prev" aria-label="Foto anterior">&#10094;</button>
-  <button class="next" aria-label="Próxima foto">&#10095;</button>
+<!-- Carrossel -->
+<div class="carousel" aria-label="Galeria de fotos do casal">
+  <img src="foto1.jpg" alt="Foto 1 do casal" class="active" />
+  <img src="foto2.jpg" alt="Foto 2 do casal" />
+  <img src="foto3.jpg" alt="Foto 3 do casal" />
+  <img src="foto4.jpg" alt="Foto 4 do casal" />
+  <img src="foto5.jpg" alt="Foto 5 do casal" />
+
+  <button class="btn prev" aria-label="Foto anterior">&#10094;</button>
+  <button class="btn next" aria-label="Próxima foto">&#10095;</button>
 </div>
 
 <!-- Áudio -->
@@ -139,11 +141,11 @@
   <source src="musica.mp3" type="audio/mpeg" />
   Seu navegador não suporta áudio.
 </audio>
-<button id="audioControl" aria-label="Controlar música">▶️ Tocar Música</button>
+<button id="audioControl" aria-label="Controlar música">⏸️ Pausar Música</button>
 
 <script>
   // Data do início do namoro (12 de maio de 2024)
-  const dataInicio = new Date(2024, 4, 12, 0, 0, 0); // mês 4 = maio (0-indexado)
+  const dataInicio = new Date(2024, 4, 12, 0, 0, 0);
   const contador = document.getElementById('contador');
 
   function atualizarContador() {
@@ -172,39 +174,41 @@
   atualizarContador();
   setInterval(atualizarContador, 1000);
 
-  // Slideshow controle
-  const slides = document.querySelectorAll('.slide');
-  let slideIndex = 0;
+  // Carrossel fade
+  const imgs = document.querySelectorAll('.carousel img');
+  let current = 0;
 
-  const btnPrev = document.querySelector('.prev');
-  const btnNext = document.querySelector('.next');
+  function showImage(index) {
+    if(index < 0) index = imgs.length - 1;
+    else if(index >= imgs.length) index = 0;
+    current = index;
 
-  function showSlide(index) {
-    if(index < 0) {
-      slideIndex = slides.length - 1;
-    } else if(index >= slides.length) {
-      slideIndex = 0;
-    } else {
-      slideIndex = index;
-    }
-
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active-slide', i === slideIndex);
+    imgs.forEach((img, i) => {
+      img.classList.toggle('active', i === current);
     });
   }
 
-  btnPrev.addEventListener('click', () => {
-    showSlide(slideIndex - 1);
+  document.querySelector('.prev').addEventListener('click', () => {
+    showImage(current - 1);
+  });
+  document.querySelector('.next').addEventListener('click', () => {
+    showImage(current + 1);
   });
 
-  btnNext.addEventListener('click', () => {
-    showSlide(slideIndex + 1);
-  });
+  // Alterna imagem a cada 6 segundos
+  setInterval(() => {
+    showImage(current + 1);
+  }, 6000);
 
   // Controle do áudio
   const musica = document.getElementById('musica');
   const btnAudio = document.getElementById('audioControl');
-  let tocando = false;
+  let tocando = true;
+
+  musica.play().catch(() => {
+    tocando = false;
+    btnAudio.textContent = "▶️ Tocar Música";
+  });
 
   btnAudio.addEventListener('click', () => {
     if(tocando){
@@ -218,7 +222,7 @@
     }
   });
 
-  // Tocar música na primeira interação do usuário (para contornar autoplay bloqueado)
+  // Tenta tocar na primeira interação caso autoplay falhe
   document.body.addEventListener('click', () => {
     if(!tocando){
       musica.play();
